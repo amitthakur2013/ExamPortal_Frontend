@@ -1,0 +1,12 @@
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+.bg-dark {
+	background-color: #ff177c!important;
+	color:white!important;
+}
+
+.bold{
+	font-weight: bold!important;
+}

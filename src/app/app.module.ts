@@ -17,14 +17,26 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { LoaderComponent } from './components/loader/loader.component';
 import { SignupComponent } from './pages/signup/signup.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { LoaderService } from './services/loader.service';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './services/auth.interceptor';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { LoginComponent } from './pages/login/login.component';
+import { HomeComponent } from './pages/home/home.component';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     FooterComponent,
-    SignupComponent
+    SignupComponent,
+    LoaderComponent,
+    LoginComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -41,9 +53,11 @@ import { SignupComponent } from './pages/signup/signup.component';
     MatIconModule,
     MatChipsModule,
     MatCheckboxModule,
-    MatRadioModule
+    MatRadioModule,
+    MatSnackBarModule,
+    MatToolbarModule
   ],
-  providers: [],
+  providers: [[{provide: HTTP_INTERCEPTORS,useClass:AuthInterceptor,multi:true}],[LoaderService],{provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
